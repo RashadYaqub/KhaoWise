@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="KhaoWise Prototype" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KhaoWise Prototype</title>
+
+  <!-- Link to External CSS -->
+  <link rel="stylesheet" href="index2.css" />
+</head>
+<body>
+
+  <!-- =============== ONBOARDING SCREEN =============== -->
+  <section id="onboarding-screen" class="screen">
+    <div class="slider-container" id="sliderContainer">
+      <!-- Slide 1 -->
+      <div class="slide">
+        <h2 id="slide1Title">Eat Wisely, Live Proudly</h2>
+        <!-- You can replace the src below with your logo image path -->
+        <img src="logo.png" height="200px" weight="200px" alt="KhaoWise Logo" />
+      </div>
+      <!-- Slide 2 -->
+      <div class="slide">
+        <h2 id="slide2Title">Smile Away</h2>
+        <!-- You can replace the src below with your male-laughing image path -->
+        <img src="Untitled-1.png" alt="Smiling Man Jogging" />
+      </div>
+      <!-- Slide 3 -->
+      <div class="slide">
+        <h2 id="slide3Title">Make Your Life a Little Bit Easier</h2>
+        <!-- You can replace the src below with your female-walking image path -->
+        <img src="image (1).png" alt="Female Walking" />
+      </div>
+    </div>
+
+    <!-- Slider Dots -->
+    <div class="slider-dots">
+      <div class="dot active" onclick="goToSlide(0)"></div>
+      <div class="dot" onclick="goToSlide(1)"></div>
+      <div class="dot" onclick="goToSlide(2)"></div>
+    </div>
+
+    <!-- Onboarding Footer -->
+    <div class="onboarding-footer">
+      <button class="cta-button bold" id="ctaButton" onclick="startApp()">Let’s Begin!</button>
+      <p class="terms">
+        By continuing you agree to our 
+        <span class="policy-link" onclick="showScreen('privacy-screen')">Privacy Policy</span> 
+        and 
+        <span class="policy-link" onclick="showScreen('terms-screen')">Terms &amp; Conditions</span>.
+      </p>
+    </div>
+  </section>
+
+  <!-- =============== LOGIN SCREEN =============== -->
+  <section id="login-screen" class="screen hidden">
+    <div class="screen-header">
+      <button class="back-btn" onclick="goBack()">← Back</button>
+    </div>
+    <div class="login-container">
+      <img src="logo.png" height="50px" width="50px" alt="KhaoWise Logo" />
+      <h2 id="loginHeader">Your health journey begins!</h2>
+
+      <input type="email" id="loginEmail" placeholder="Enter your email" />
+      <input type="password" id="loginPassword" placeholder="Enter your password" />
+
+      <button class="main-btn bold" onclick="loginUser()">Log In</button>
+
+      <span class="forgot-pass" onclick="forgotPassword()">Forgot your password?</span>
+
+      <div class="social-login">
+        <div class="social-btn" onclick="loginWithGoogle()">Log In with Google</div>
+        <div class="social-btn" onclick="loginWithFacebook()">Log In with Facebook</div>
+      </div>
+
+      <span class="signup-link" onclick="goToSignUp()">Don't have an account? Sign up</span>
+      <span class="skip-link" onclick="skipLogin()">Skip for now</span>
+    </div>
+  </section>
+
+  <!-- =============== INPUT SCREEN =============== -->
+  <section id="input-screen" class="screen hidden">
+    <div class="screen-header">
+      <button class="back-btn" onclick="goBack()">← Back</button>
+    </div>
+    <div class="input-form-container">
+      <h2 id="inputTitle">Let's Personalize Your Diet Plan</h2>
+      <p id="inputDescription">Enter your details to create a personalized meal plan just for you.</p>
+      
+      <!-- Age -->
+      <div class="form-group">
+        <label for="age">Age (1 - 120)</label>
+        <input type="number" id="age" placeholder="e.g., 25" min="1" max="120"/>
+      </div>
+
+      <!-- Gender -->
+      <div class="form-group">
+        <label for="gender">Gender</label>
+        <select id="gender">
+          <option value="">Select</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="others">Others</option>
+        </select>
+      </div>
+
+      <!-- Personal Information -->
+      <div class="form-group">
+        <label for="height">Height (in inches)</label>
+        <input type="number" id="height" placeholder="e.g., 70" />
+      </div>
+      <div class="form-group">
+        <label for="weight">Weight (in kg)</label>
+        <input type="number" id="weight" placeholder="e.g., 65" />
+      </div>
+      <div class="form-group">
+        <label for="goalWeight">Goal Weight (in kg)</label>
+        <input type="number" id="goalWeight" placeholder="e.g., 60" />
+      </div>
+      <div class="form-group">
+        <label for="goalFat">Goal Fat Percentage (%)</label>
+        <input type="number" id="goalFat" placeholder="e.g., 20" />
+      </div>
+
+      <!-- Medical History -->
+      <div class="checkbox-group">
+        <label>Do you have any of the following medical conditions?</label>
+        <label><input type="checkbox" value="diabetes" /> Diabetes</label>
+        <label><input type="checkbox" value="bp" /> Blood Pressure Issues</label>
+        <label><input type="checkbox" value="asthma" /> Asthma</label>
+        <label><input type="checkbox" value="allergy" /> Allergic Reactions</label>
+        <label>
+          <input type="checkbox" value="other" id="otherConditionChk" />
+          Other
+          <input type="text" id="otherConditionText" class="hidden" placeholder="Specify condition..." />
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>Are you currently taking any medications?</label>
+        <select id="medications" onchange="toggleMedicationInput()">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+        <input type="text" id="medicationDetails" class="hidden" placeholder="Type medicine name(s)..." />
+      </div>
+
+      <!-- Budget Preference -->
+      <div class="form-group">
+        <label>Choose your budget preference for food:</label>
+        <select id="budget">
+          <option value="">Select</option>
+          <option value="low">Low Budget</option>
+          <option value="medium">Medium Budget</option>
+          <option value="high">High Budget</option>
+        </select>
+      </div>
+
+      <!-- Food Preferences -->
+      <div class="form-group">
+        <label>Do you prefer alternative food combinations?</label>
+        <select id="alternatives">
+          <option value="">Select</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Any specific food allergies?</label>
+        <input type="text" id="allergies" placeholder="e.g., peanuts" />
+      </div>
+
+      <!-- Seasonal Preferences -->
+      <div class="form-group">
+        <label>Which season's meal plan would you prefer?</label>
+        <select id="seasonChoice">
+          <option value="">Select</option>
+          <option value="summer">Summer</option>
+          <option value="winter">Winter</option>
+        </select>
+      </div>
+
+      <button class="generate-btn bold" onclick="generateMealPlan()">Generate My Meal Plan</button>
+    </div>
+  </section>
+
+  <!-- =============== DASHBOARD SCREEN =============== -->
+  <section id="dashboard-screen" class="screen hidden">
+    <div class="screen-header">
+      <button class="back-btn" onclick="goBack()">← Back</button>
+    </div>
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" id="tabRecommended" onclick="showTab('recommended')">Recommended Foods</div>
+      <div class="tab" id="tabAlternative" onclick="showTab('alternative')">Alternative Foods</div>
+      <div class="tab" id="tabRecipes" onclick="showTab('recipes')">Recipes</div>
+    </div>
+
+    <!-- Tab Contents -->
+    <div class="tab-content active" id="recommendedFoods">
+      <!-- Example: Multiple Healthy Meal Plan Cards (Combined from the list) -->
+      
+      <!-- Meal Plan #1 -->
+      <div class="food-card">
+        <img src="simple-curry-leaves-and-coconut-milk-chicken-curry10.jpg" height="200px" weight="200px" alt="Meal Plan 1" /> 
+        <div class="food-info">
+          <span class="food-name">Plain Rice + Chicken Curry + Palong Shak + Masoor Dal</span>
+          <span>Calories: ~450</span>
+          <span>Protein: ~25g</span>
+          <span>Price Range: Low</span>
+          <div class="add-to-plan-btn bold" onclick="goToRecipe('Plan1')">View Recipe</div>
+        </div>
+      </div>
+
+      <!-- Meal Plan #2 -->
+      <div class="food-card">
+        <img src="images.jpg" height="200px" weight="200px" alt="Meal Plan 2" /> 
+        <div class="food-info">
+          <span class="food-name">Bhuna Khichuri + Begun Bhaja + Papad</span>
+          <span>Calories: ~500</span>
+          <span>Protein: ~18g</span>
+          <span>Price Range: Low/Medium</span>
+          <div class="add-to-plan-btn bold" onclick="goToRecipe('Plan2')">View Recipe</div>
+        </div>
+      </div>
+
+      <!-- Meal Plan #3 -->
+      <div class="food-card">
+        <img src="daabchingri.png" height="200px" weight="200px" alt="Meal Plan 3" /> 
+        <div class="food-info">
+          <span class="food-name">Polao + Daab Chingri + Alu Bhorta</span>
+          <span>Calories: ~650</span>
+          <span>Protein: ~30g</span>
+          <span>Price Range: Medium</span>
+          <div class="add-to-plan-btn bold" onclick="goToRecipe('Plan3')">View Recipe</div>
+        </div>
+      </div>
+
+     
+      <!-- Meal Plan #4 --> 
+      <div class="food-card">
+        <img src="Paanta bhaat.png" height="200px" weight="200px" alt="Meal Plan 4" /> 
+        <div class="food-info">
+          <span class="food-name">Panta Bhat + Rui Macher Jhol + Alu Vaji</span>
+          <span>Calories: ~400</span>
+          <span>Protein: ~20g</span>
+          <span>Price Range: Low</span>
+          <div class="add-to-plan-btn bold" onclick="goToRecipe('Plan5')">View Recipe</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="alternativeFoods">
+      <!-- You can add alternative food cards here as desired -->
+      <div class="food-card">
+        <img src="brownricechicken.png" height="200px" weight="200px" alt="Meal Item" /> 
+        <div class="food-info">
+          <span class="food-name">Brown Rice & Chicken</span>
+          <span>Calories: 400</span>
+          <span>Protein: 20g</span>
+          <span>Price Range: Medium</span>
+          <div class="add-to-plan-btn bold" onclick="goToRecipe('Brown Rice & Chicken')">View Recipe</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="recipeTab">
+      <!-- You can add recipes here as desired -->
+      <div class="food-card">
+        <img src="mixedveggie.png" alt="Meal Item" />
+        <div class="food-info">
+          <span class="food-name">Mixed Vegetable Curry</span>
+          <span>Prep Time: 20 min</span>
+          <div class="add-to-plan-btn bold" onclick="goToRecipe('Mixed Vegetable Curry')">View Recipe</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Removed the video section as requested -->
+    <!-- <div class="video-section">
+      <h3>Video</h3>
+      <video width="100%" controls>
+        <source src="https://youtu.be/6s10ewJ0pug?feature=shared" type="video/mp4" />
+      </video>
+    </div> -->
+
+  <!-- =============== SETTINGS SCREEN =============== -->
+  <section id="settings-screen" class="screen hidden">
+    <div class="screen-header">
+      <button class="back-btn" onclick="goBack()">← Back</button>
+    </div>
+    <div class="settings-header">
+      <h2>Settings</h2>
+    </div>
+    <div class="settings-section">
+      <h3>User Information</h3>
+      <p>Update your name, weight, and medical history here.</p>
+    </div>
+    <div class="settings-section">
+      <h3>Goals</h3>
+      <p>Reset or update your goal weight and fat percentage.</p>
+    </div>
+    <div class="settings-section">
+      <h3>App Preferences</h3>
+      <p>Choose language, notifications, and theme options.</p>
+    </div>
+    <button class="generate-btn bold">Save Changes</button>
+    <button class="generate-btn" style="background-color: #ccc; color: #444; margin-top: 0.5rem;">
+      Reset to Default
+    </button>
+  </section>
+
+  <!-- =============== PRIVACY POLICY SCREEN =============== -->
+  <section id="privacy-screen" class="screen hidden">
+    <div class="screen-header">
+      <button class="back-btn" onclick="goBack()">← Back</button>
+    </div>
+    <div class="policy-container">
+      <h2>Privacy Policy for KhaoWise</h2>
+      <p><strong>Effective Date:</strong> January 1, 2025</p>
+      <p>
+        This Privacy Policy describes how KhaoWise ("we," "us," or "our") collects, 
+        uses, and shares your information when you use our mobile application (the "App").
+      </p>
+      <p><strong>Information We Collect:</strong></p>
+      <ul>
+        <li><strong>Account Information:</strong> When you create an account, we collect information such as your name, email address, phone number, and potentially a profile picture.</li>
+        <li><strong>Usage Data:</strong> We collect information about how you use the App, including the features you access, the content you view, the time and duration of your sessions, and your interactions with other users (if applicable).</li>
+        <li><strong>Device Information:</strong> We collect information about the device you use to access the App, such as the device model, operating system, unique device identifiers (e.g., IMEI, Android ID), and mobile network information.</li>
+        <li><strong>Location Information:</strong> We may collect your device's location (with your permission) to provide location-based features...</li>
+        <li><strong>Health and Dietary Information:</strong> If the app includes features for tracking food intake, dietary preferences, or health goals, we will collect the information you choose to provide related to these features...</li>
+        <li><strong>Log Data:</strong> Our servers automatically record information ("log data")...</li>
+      </ul>
+      <p><strong>How We Use Your Information:</strong></p>
+      <ul>
+        <li>Providing and Maintaining the App</li>
+        <li>Improving the App</li>
+        <li>Personalization</li>
+        <li>Communication</li>
+        <li>Research and Analytics</li>
+        <li>Legal Compliance</li>
+      </ul>
+      <p><strong>Sharing Your Information:</strong></p>
+      <ul>
+        <li>Service Providers</li>
+        <li>Legal Authorities</li>
+        <li>Business Transfers</li>
+      </ul>
+      <p><strong>Your Choices:</strong></p>
+      <ul>
+        <li>Account Information</li>
+        <li>Location Information</li>
+        <li>Marketing Communications</li>
+      </ul>
+      <p><strong>Data Security:</strong> We take reasonable measures to protect your information...</p>
+      <p><strong>Children's Privacy:</strong> KhaoWise is not intended for children under the age of 13...</p>
+      <p><strong>Changes to this Privacy Policy:</strong> We may update this Privacy Policy from time to time...</p>
+      <p><strong>Contact Us:</strong> If you have any questions about this Privacy Policy, please contact us at [Your Contact Email Address].</p>
+    </div>
+  </section>
+
+  <!-- =============== PRIVACY POLICY SCREEN =============== -->
+  <section id="privacy-screen" class="screen hidden">
+    <div class="screen-header">
+      <button class="back-btn" onclick="goBack()">← Back</button>
+    </div>
+    <div class="policy-container">
+      <h2>Privacy Policy for KhaoWise</h2>
+      <p><strong>Effective Date:</strong> January 1, 2025</p>
+      <p>
+        This Privacy Policy describes how KhaoWise ("we," "us," or "our") collects, 
+        uses, and shares your information when you use our mobile application (the "App").
+      </p>
+      <p><strong>Information We Collect:</strong></p>
+      <ul>
+        <li><strong>Account Information:</strong> When you create an account, we collect information such as your name, email address, phone number, and potentially a profile picture.</li>
+        <li><strong>Usage Data:</strong> We collect information about how you use the App, including the features you access, the content you view, the time and duration of your sessions, and your interactions with other users (if applicable).</li>
+        <li><strong>Device Information:</strong> We collect information about the device you use to access the App, such as the device model, operating system, unique device identifiers (e.g., IMEI, Android ID), and mobile network information.</li>
+        <li><strong>Location Information:</strong> We may collect your device's location (with your permission) to provide location-based features...</li>
+        <li><strong>Health and Dietary Information:</strong> If the app includes features for tracking food intake, dietary preferences, or health goals, we will collect the information you choose to provide related to these features...</li>
+        <li><strong>Log Data:</strong> Our servers automatically record information ("log data")...</li>
+      </ul>
+      <p><strong>How We Use Your Information:</strong></p>
+      <ul>
+        <li>Providing and Maintaining the App</li>
+        <li>Improving the App</li>
+        <li>Personalization</li>
+        <li>Communication</li>
+        <li>Research and Analytics</li>
+        <li>Legal Compliance</li>
+      </ul>
+      <p><strong>Sharing Your Information:</strong></p>
+      <ul>
+        <li>Service Providers</li>
+        <li>Legal Authorities</li>
+        <li>Business Transfers</li>
+      </ul>
+      <p><strong>Your Choices:</strong></p>
+      <ul>
+        <li>Account Information</li>
+        <li>Location Information</li>
+        <li>Marketing Communications</li>
+      </ul>
+      <p><strong>Data Security:</strong> We take reasonable measures to protect your information...</p>
+      <p><strong>Children's Privacy:</strong> KhaoWise is not intended for children under the age of 13...</p>
+      <p><strong>Changes to this Privacy Policy:</strong> We may update this Privacy Policy from time to time...</p>
+      <p><strong>Contact Us:</strong> If you have any questions about this Privacy Policy, please contact us at [Your Contact Email Address].</p>
+    </div>
+  </section> 
+
+  <!-- =============== TERMS & CONDITIONS SCREEN =============== -->
+  <section id="terms-screen" class="screen hidden">
+    <div class="screen-header">
+      <button class="back-btn" onclick="goBack()">← Back</button>
+    </div>
+    <div class="policy-container">
+      <h2>Terms &amp; Conditions</h2>
+      <p><strong>“Effective Date: January 1, 2025
+        1. Acceptance of Terms:
+        By accessing or using the KhaoWise app (the "App"), you ("you" or "User") agree to be bound by these Terms and Conditions ("Terms"). If you do not agree to these Terms, do not use the App.
+        2. Use of the App:
+        •	Eligibility: You must be at least 13 years old to use the App.
+        •	Account Creation: You may be required to create an account to access certain features of the App. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.   
+        •	Prohibited Conduct: You agree not to: 
+        o	Use the App for any illegal or unauthorized purpose.   
+        o	Interfere with or disrupt the operation of the App.
+        o	Attempt to gain unauthorized access to the App or its related systems.   
+        o	Violate any applicable laws or regulations.
+        •	User Content: You are solely responsible for any content you post, upload, or otherwise make available through the App. You represent and warrant that you have all necessary rights to such content.
+        3. Intellectual Property:
+        The App and its content (including but not limited to text, graphics, logos, images, and software) are owned by KhaoWise or its licensors and are protected by copyright, trademark, and other intellectual property laws.
+        4. Disclaimer of Warranties:
+        The App is provided "as is" without any warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, and non-infringement.   
+        5. Limitation of Liability:
+        To the maximum extent permitted by law, KhaoWise shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, good-will, or other intangible losses, resulting from (a) your use or inability to use the app; (b) any unauthorized access to or use of our servers and/or any personal information stored therein; (c) any interruption or cessation of transmission to or from the app; (d) any bugs, viruses, trojan horses, or the like that may be transmitted to or through our app by any third party; (e) any errors or omissions in any content or for any loss or damage of any kind incurred as a result of your use of any content posted, emailed, transmitted, or otherwise made available via the app, whether based on warranty, contract, tort (including negligence), or any other legal theory, whether or not we have been informed of the possibility of such damage.   
+        6. Governing Law:
+        These Terms shall be governed by and construed in accordance with the laws of [Your State/Country], without regard to its conflict of law principles.   
+        7. Changes to these Terms:
+        KhaoWise may update these Terms from time to time. We will notify you of any material changes by posting the updated Terms in the App and/or by sending you a notification.
+        8. Contact Us:
+        If you have any questions about these Terms, please contact us at [contact@khaowise.com].
+        Important Notes:
+        •	Legal Review: Absolutely essential. This is still a template and must be reviewed by a qualified lawyer, especially regarding data privacy in your specific jurisdiction.
+        •	Bengali Translation: A professional translation is necessary to ensure accuracy for your Bengali-speaking users.
+        •	Data Security: Implement robust security measures and regularly assess them.
+        •	Specific Features: If your app has unique features (e.g., in-app purchases, social sharing), adjust the policies accordingly.
+        •	Location Data: Be extremely transparent about how you collect, use, and store location data. Ensure you have the necessary consent.
+        •	Health Data: Data related to health is highly sensitive and requires explicit consent and strong security.
+        </p>
+      <!-- ... (full text from your previous version) ... -->
+    </div>
+  </section>
+
+  <!-- =============== BOTTOM NAVIGATION =============== -->
+  <div class="bottom-nav hidden" id="bottomNav">
+
+    <!-- Home Icon (replace with your own icon path or Font Awesome icon if desired) -->
+    <button onclick="navigateTo('dashboard')" id="navHome" class="bold active">
+      <img src="home.png" alt="Home" style="width: 24px; height: 24px;" />
+    </button>
+
+    <!-- Settings Icon -->
+    <button onclick="navigateTo('settings')" id="navSettings" class="bold">
+      <img src="settings.png" alt="Settings" style="width: 24px; height: 24px;" />
+    </button>
+
+  </div>
+
+  <!-- External JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
